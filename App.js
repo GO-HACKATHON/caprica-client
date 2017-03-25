@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import Accidents from './components/Accidents';
 
 const styles = StyleSheet.create({
 	container: {
@@ -24,16 +25,8 @@ export default class App extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-				<Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-				<Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
+				<Text>Welcome to Caprica-Client.</Text>
+				<Accidents />
 			</View>
 		);
 	}
