@@ -59,4 +59,14 @@ api.reportAccident = ({id, latitude, longitude, speed}) => api.fetch({
 	params: {id}
 });
 
+api.connectUser = ({id}) => api.fetch({
+	method: 'post',
+	url: `/users/${id}/connect`
+});
+
+api.disconnectUser = ({id}) => api.fetch({
+	method: 'post',
+	url: `/users/${id}/disconnect`
+});
+
 module.exports = api;

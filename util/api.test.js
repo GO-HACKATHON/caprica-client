@@ -62,3 +62,22 @@ it('can report for accident', async () => {
 	expect(accidentResponse).toBeDefined();
 	expect(accidentResponse.name).toBe(TESTER_NAME);
 });
+
+it('can CONNECT user to server', async () => {
+	const {id} = user
+	const connectResponse = await api.connectUser({id})
+	expect(connectResponse).toBeDefined()
+	expect(connectResponse.id).toBe(id)
+	expect(connectResponse.name).toBe(TESTER_NAME)
+	expect(connectResponse.is_connected).toBe(true)
+})
+
+it('can DISCONNECT user to server', async () => {
+	const {id} = user
+	// /users/:user_id/connect
+	const connectResponse = await api.disconnectUser({id})
+	expect(connectResponse).toBeDefined()
+	expect(connectResponse.id).toBe(id)
+	expect(connectResponse.name).toBe(TESTER_NAME)
+	expect(connectResponse.is_connected).toBe(false)
+})
