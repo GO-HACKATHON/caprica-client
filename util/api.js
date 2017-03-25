@@ -26,4 +26,15 @@ api.createUser = ({name}) => api.fetch({
   data: {name}
 })
 
+api.reportRASH = ({userId, rash, status, latitude, longitude}) => api.fetch({
+  method: 'post',
+  url: `/users/${userId}/rash`,
+  data: {
+    rash,
+    status,
+    latitude,
+    longitude
+  }
+})
+
 module.exports = exports = api
