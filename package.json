@@ -14,7 +14,8 @@
     "bluebird": "^3.5.0",
     "firebase": "^3.7.3",
     "react": "~15.4.1",
-    "react-native": "0.42.3"
+    "react-native": "0.42.3",
+    "react-native-location": "^0.27.0"
   },
   "devDependencies": {
     "babel-jest": "19.0.0",

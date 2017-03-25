@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Accidents from './components/Accidents';
+import Location from './components/Location';
 
 const styles = StyleSheet.create({
 	container: {
@@ -27,6 +28,7 @@ export default class App extends Component {
 			<View style={styles.container}>
 				<Text>Welcome to Caprica-Client.</Text>
 				<Accidents />
+				<Location />
 			</View>
 		);
 	}
