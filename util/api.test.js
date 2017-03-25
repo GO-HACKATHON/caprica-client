@@ -55,9 +55,9 @@ it('can report if speed is too high', async () => {
 
 it('can report for accident', async () => {
 	const {id} = user;
-	const latitude = POINT.LATITUDE;
-	const longitude = POINT.LONGITUDE;
-	const speed = SPEED.HIGH;
+	const latitude = POINT.RANDOM;
+	const longitude = POINT.RANDOM;
+	const speed = SPEED.RANDOM;
 	const accidentResponse = await api.reportAccident({id, latitude, longitude, speed});
 	expect(accidentResponse).toBeDefined();
 	expect(accidentResponse.name).toBe(TESTER_NAME);

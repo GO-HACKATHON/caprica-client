@@ -52,4 +52,11 @@ api.reportSpeed = ({id, speed, reportTime, warning}) => api.fetch({
 	data: {speed, reportTime, warning}
 });
 
+api.reportAccident = ({id, latitude, longitude, speed}) => api.fetch({
+	method: 'post',
+	url: `/users/${id}/accident`,
+	data: {latitude, longitude, speed},
+	params: {id}
+});
+
 module.exports = api;
