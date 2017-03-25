@@ -1,9 +1,9 @@
 import api from './api'
 
+const TESTER_NAME = `Odi ${Date.now()}`
 let user
 
 beforeAll(async () => {
-  const TESTER_NAME = `Odi ${Date.now()}`
   user = await api.createUser({name: TESTER_NAME})
 })
 
@@ -27,6 +27,7 @@ it('can report RASH', async () => {
   }
   const rashResponse = await api.reportRASH(Object.assign({}, rashData, {id}))
   expect(rashResponse).toBeDefined()
+  expect(rashResponse.name).toBe(TESTER_NAME)
 })
 
 it('can log speed', async () => {
@@ -34,7 +35,7 @@ it('can log speed', async () => {
   const speed = 65
   const speedResponse = await api.logSpeed({id, speed})
   expect(speedResponse).toBeDefined()
-  expect(speedResponse.name).toBeDefined()
+  expect(speedResponse.name).toBe(TESTER_NAME)
 })
 
 it('can report if speed is too high', async () => {
@@ -44,5 +45,5 @@ it('can report if speed is too high', async () => {
   const warning = 'Speed is too high'
   const speedResponse = await api.reportSpeed({id, speed, reportTime, warning})
   expect(speedResponse).toBeDefined()
-  expect(speedResponse.name).toBeDefined()
+  expect(speedResponse.name).toBe(TESTER_NAME)
 })
