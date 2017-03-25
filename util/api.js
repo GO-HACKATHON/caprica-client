@@ -26,15 +26,29 @@ api.createUser = ({name}) => api.fetch({
   data: {name}
 })
 
-api.reportRASH = ({userId, rash, status, latitude, longitude}) => api.fetch({
+api.reportRASH = ({id, rash, status, latitude, longitude}) => api.fetch({
   method: 'post',
-  url: `/users/${userId}/rash`,
+  url: `/users/${id}/rash`,
   data: {
     rash,
     status,
     latitude,
     longitude
   }
+})
+
+api.logSpeed = ({id, speed}) => api.fetch({
+  method: 'post',
+  url: `/users/${id}/speeds`,
+  data: {
+    speed
+  }
+})
+
+api.reportSpeed = ({id, speed, reportTime, warning}) => api.fetch({
+  method: 'post',
+  url: `/users/${id}/speedwarning`,
+  data: {speed, reportTime, warning}
 })
 
 module.exports = exports = api
