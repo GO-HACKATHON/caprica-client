@@ -34,7 +34,8 @@
   "xo": {
     "extends": "xo-react",
     "rules": {
-      "react/forbid-component-props": "off"
+      "react/forbid-component-props": "off",
+      "unicorn/filename-case": "off"
     }
   }
 }
