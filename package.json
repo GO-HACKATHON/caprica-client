@@ -17,7 +17,7 @@
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
     "lint": "xo --env=jest --fix",
-    "test": "xo --env=jest && node node_modules/jest/bin/jest.js --watch"
+    "test": "xo --env=jest --fix && node node_modules/jest/bin/jest.js --watch"
   },
   "jest": {
     "preset": "jest-expo"

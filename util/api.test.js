@@ -1,4 +1,9 @@
 import api from './api';
+import {
+	SPEED,
+	POINT,
+	RASH
+} from './test-constants';
 
 const TESTER_NAME = `Odi ${Date.now()}`;
 let user;
@@ -8,7 +13,7 @@ beforeAll(async () => {
 });
 
 it('can create a new user', async () => {
-	const name = 'tester';
+	const name = TESTER_NAME;
 	const newUser = await api.createUser({name});
 	expect(newUser).toBeDefined();
 	expect(newUser.name).toBe(name);
@@ -20,10 +25,10 @@ it('can create a new user', async () => {
 it('can report RASH', async () => {
 	const {id} = user;
 	const rashData = {
-		rash: 42,
-		status: 'accelerate',
-		latitude: -6.2191701,
-		longitude: 106.8129082
+		rash: RASH.MEDIUM,
+		status: RASH.STATUS.ACCELERATE,
+		latitude: POINT.LATITUDE,
+		longitude: POINT.LONGITUDE
 	};
 	const rashResponse = await api.reportRASH(Object.assign({}, rashData, {id}));
 	expect(rashResponse).toBeDefined();
@@ -32,7 +37,7 @@ it('can report RASH', async () => {
 
 it('can log speed', async () => {
 	const {id} = user;
-	const speed = 65;
+	const speed = SPEED.MEDIUM;
 	const speedResponse = await api.logSpeed({id, speed});
 	expect(speedResponse).toBeDefined();
 	expect(speedResponse.name).toBe(TESTER_NAME);
@@ -40,10 +45,20 @@ it('can log speed', async () => {
 
 it('can report if speed is too high', async () => {
 	const {id} = user;
-	const speed = 200;
+	const speed = SPEED.HIGH;
 	const reportTime = new Date();
 	const warning = 'Speed is too high';
 	const speedResponse = await api.reportSpeed({id, speed, reportTime, warning});
 	expect(speedResponse).toBeDefined();
 	expect(speedResponse.name).toBe(TESTER_NAME);
+});
+
+it('can report for accident', async () => {
+	const {id} = user;
+	const latitude = POINT.LATITUDE;
+	const longitude = POINT.LONGITUDE;
+	const speed = SPEED.HIGH;
+	const accidentResponse = await api.reportAccident({id, latitude, longitude, speed});
+	expect(accidentResponse).toBeDefined();
+	expect(accidentResponse.name).toBe(TESTER_NAME);
 });
