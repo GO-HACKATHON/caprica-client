@@ -3,6 +3,9 @@
   "version": "1.1.1",
   "private": true,
   "devDependencies": {
+    "eslint-config-xo": "^0.18.1",
+    "eslint-config-xo-react": "^0.11.1",
+    "eslint-plugin-react": "^6.10.3",
     "jest-expo": "^0.3.0",
     "react-native-scripts": "0.0.25",
     "react-test-renderer": "~15.4.1"
@@ -13,7 +16,7 @@
     "eject": "react-native-scripts eject",
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
-    "lint": "xo --fix",
+    "lint": "xo --env=jest --fix",
     "test": "xo --env=jest && node node_modules/jest/bin/jest.js --watch"
   },
   "jest": {
@@ -26,5 +29,11 @@
     "react": "~15.4.0",
     "react-native": "0.42.3",
     "xo": "^0.18.0"
+  },
+  "xo": {
+    "extends": "xo-react",
+    "rules": {
+      "react/forbid-component-props": "off"
+    }
   }
 }
