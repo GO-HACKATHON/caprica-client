@@ -3909,6 +3909,10 @@ react-deep-force-update@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/react-deep-force-update/-/react-deep-force-update-1.0.1.tgz#f911b5be1d2a6fe387507dd6e9a767aa2924b4c7"
 
+react-native-android-btserial@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-android-btserial/-/react-native-android-btserial-1.0.1.tgz#1bbff0932d4b00b66eac874c1c26c5cebf700367"
+
 react-native-location@^0.27.0:
   version "0.27.0"
   resolved "https://registry.yarnpkg.com/react-native-location/-/react-native-location-0.27.0.tgz#8e920a7bfbd4b55833028f2dad65edc12449d6f5"
