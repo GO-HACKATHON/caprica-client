@@ -7,9 +7,10 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "lint": "xo --env=jest --fix",
-    "test": "xo --env=jest --fix && jest --watch"
+    "test": "jest --watch"
   },
   "dependencies": {
+    "@shoutem/ui": "^0.12.0",
     "axios": "^0.15.3",
     "bluebird": "^3.5.0",
     "firebase": "^3.7.3",

@@ -4,6 +4,7 @@ import Accidents from './components/Accidents';
 import Location from './components/Location';
 import Bluetooth from './components/Bluetooth';
 import BTSerial from 'react-native-android-btserial';
+import {Heading} from '@shoutem/ui'
 
 const styles = StyleSheet.create({
 	container: {
@@ -27,12 +28,13 @@ const styles = StyleSheet.create({
 export default class App extends Component {
 	constructor (props) {
 		super(props)
+
 	}
 
 	render() {
 		return (
 			<View style={styles.container}>
-				<Text>Welcome to Caprica-Client.</Text>
+				<Heading>Welcome to Caprica-Client.</Heading>
 				<Accidents />
 				<Location />
 				<Bluetooth />

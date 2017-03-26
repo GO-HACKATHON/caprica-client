@@ -6,7 +6,7 @@ const withAccidents = fn => (
 
 	constructor(props) {
 		super(props);
-		this.state = {accidents: [], isLoadingAccidents: true}
+		this.state = {accidents: [], isLoadingAccidents: true};
 		this.onUpdateAccidents = this.onUpdateAccidents.bind(this);
 	}
 
@@ -20,7 +20,7 @@ const withAccidents = fn => (
 
 	onUpdateAccidents(accidents) {
 		const accidentsVal = accidents.val();
-    console.log(accidentsVal)
+		console.log(accidentsVal);
 		const listOfAccidents = Object.keys(accidentsVal).map(key => accidentsVal[key]).sort((a, b) => b.created_at - a.created_at);
 		this.setState({accidents: listOfAccidents, isLoadingAccidents: false});
 	}
