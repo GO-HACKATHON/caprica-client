@@ -15,6 +15,7 @@
     "firebase": "^3.7.3",
     "react": "~15.4.1",
     "react-native": "0.42.3",
+    "react-native-android-btserial": "^1.0.1",
     "react-native-location": "^0.27.0"
   },
   "devDependencies": {
