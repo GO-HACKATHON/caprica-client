@@ -1,6 +1,12 @@
 import {Component} from 'react';
 import BTSerial from 'react-native-android-btserial';
 import Promise from 'bluebird'
+import api from '../util/api'
+import {
+	SPEED,
+	POINT,
+	RASH
+} from '../util/test-constants';
 
 const withBluetooth = fn => (
   class extends Component {
@@ -13,39 +19,93 @@ const withBluetooth = fn => (
       isBTEnabled: false,
       messageCount: 0,
       message: '',
-      ts: Date.now()
+      ts: Date.now(),
+      userId: '',
+      isHelmetOn: false,
+      error: null,
+      accident: false
     }
     this.enableBT = this.enableBT.bind(this)
     this.listDevices = this.listDevices.bind(this)
     this.connect = this.connect.bind(this)
     this.countAvailableMessage = this.countAvailableMessage.bind(this)
     this.readMessageUTF8 = this.readMessageUTF8.bind(this)
+    this.processMessage = this.processMessage.bind(this)
     this.pState = this.pState.bind(this)
 	}
 
 	async componentDidMount() {
-    const isBTEnabled = await this.enableBT()
-    this.setState({isBTEnabled})
-    const devices = await this.listDevices()
-    const address = '98:D3:32:70:78:67'
-    // const {address} = devices.filter((device) => device.address === '98:D3:32:70:78:67')[0]
-    this.setState({address})
-    const {status, name} = await this.connect(address)
-    this.setState({deviceName: name})
-    this.loop = setInterval(async () => {
-      this.setState({ts: Date.now()})
-      const messageCount = await this.countAvailableMessage()
-      this.setState({messageCount})
-      if (messageCount > 0) {
-        const message = await this.readMessageUTF8()
-        this.setState({message})
+    const tryConnect = async (address) => {
+      console.log('connecting')
+      const {status, name} = await this.connect(address)
+      console.log(status)
+      if (status) {
+        this.setState({deviceName: name})
+        return ({status, name})
       }
-    }, 1000)
+      return tryConnect(address)
+    }
+    try {
+      const user = await api.createUser({name: `Ahmad ${Date.now()}`})
+      this.setState({userId: user.id})
+      const isBTEnabled = await this.enableBT()
+      this.setState({isBTEnabled})
+      const devices = await this.listDevices()
+      const address = '98:D3:32:70:78:67'
+      // const {address} = devices.filter((device) => device.address === '98:D3:32:70:78:67')[0]
+      this.setState({address})
+      const connected = await tryConnect(address)
+    } catch (e) {
+      this.setState({error: e})
+    }
+      this.loop = setInterval(async () => {
+        this.setState({ts: Date.now()})
+        const messageCount = await this.countAvailableMessage()
+        this.setState({messageCount})
+        if (messageCount > 0) {
+          const message = await this.readMessageUTF8()
+          this.setState({message})
+          await this.processMessage(message)
+        }
+      }, 5000)
+
 	}
 
 	componentWillUnmount() {
     clearInterval(this.loop)
 	}
+
+  processMessage (message) {
+    const {userId} = this.state
+    return new Promise(async (resolve, reject) => {
+      const pairs = message.split('\n')
+      let on = 0
+      let off = 0
+      let accident = false
+      pairs.forEach(pair => {
+        let response
+        if (pair.includes('2,1')) {
+          on++
+        } else if (pair.includes('2,0')) {
+          off++
+        }
+        if (pair.includes('3,')) {
+          accident = true
+        }
+      })
+      if (accident) {
+        await api.reportAccident({id: userId, latitude: POINT.RANDOM, longitude: POINT.RANDOM, speed: SPEED.RANDOM})
+      }
+      this.setState({accident})
+      if (on > off) {
+        this.setState({isHelmetOn: true})
+        return api.connectUser(userId)
+      } else {
+        this.setState({isHelmetOn: false})
+        return api.disconnectUser(userId)
+      }
+    })
+  }
 
   pState (state) {
     return new Promise((resolve, reject) => {
