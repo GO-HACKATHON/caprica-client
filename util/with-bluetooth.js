@@ -12,7 +12,8 @@ const withBluetooth = fn => (
       deviceName: '',
       isBTEnabled: false,
       messageCount: 0,
-      message: ''
+      message: '',
+      ts: Date.now()
     }
     this.enableBT = this.enableBT.bind(this)
     this.listDevices = this.listDevices.bind(this)
@@ -24,18 +25,20 @@ const withBluetooth = fn => (
 
 	async componentDidMount() {
     const isBTEnabled = await this.enableBT()
-    await this.pState(isBTEnabled)
+    this.setState({isBTEnabled})
     const devices = await this.listDevices()
-    const {address} = devices.filter(({name}) => /ssx/i.test(name))
-    await this.pState({address})
+    const address = '98:D3:32:70:78:67'
+    // const {address} = devices.filter((device) => device.address === '98:D3:32:70:78:67')[0]
+    this.setState({address})
     const {status, name} = await this.connect(address)
-    await this.pState({deviceName: name})
+    this.setState({deviceName: name})
     this.loop = setInterval(async () => {
+      this.setState({ts: Date.now()})
       const messageCount = await this.countAvailableMessage()
-      await this.pState({messageCount})
+      this.setState({messageCount})
       if (messageCount > 0) {
         const message = await this.readMessageUTF8()
-        await this.pState({message})
+        this.setState({message})
       }
     }, 1000)
 	}
