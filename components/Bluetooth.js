@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Text, View} from 'react-native';
 import withBluetooth from '../util/with-bluetooth';
 
 export default withBluetooth(({accident=false, isHelmetOn = false, userId = '', ts, address = '', deviceName = '', isBTEnabled = false, messageCount = 0, message = ''}) => (
